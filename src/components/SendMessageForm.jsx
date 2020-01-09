@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const SendMessageForm = () => {
+const SendMessageForm = (props) => {
   const [input, setInput] = useState({inputText: ''})
 
   const handleInputChange = e => {
@@ -9,8 +9,16 @@ const SendMessageForm = () => {
     setInput({...input,[e.target.name]: e.target.value})
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    props.sendMessage(input.inputText)
+  }
+
   return (
-    <form className="send-message-form">
+    <form 
+      className="send-message-form"
+      onSubmit={handleSubmit}
+    >
       <input
         placeholder="New Message"
         type="text"

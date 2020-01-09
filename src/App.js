@@ -16,6 +16,7 @@ class App extends React.Component {
             currentUser: {},
             roomList: []
         }
+        this.sendMessage = this.sendMessage.bind(this)
     } 
     
     componentDidMount() {
@@ -26,7 +27,6 @@ class App extends React.Component {
                 url: tokenUrl
             })
         })
-        
         newChatManager.connect()
         .then(currentUser => {
           this.setState({
@@ -52,6 +52,14 @@ class App extends React.Component {
         console.log(newChatManager)
     }
 
+    sendMessage(text) {
+      console.log(text)
+      this.state.currentUser.sendMessage({
+        text: text,
+        roomId: 'a7c58290-2963-48e4-adfd-64e788c56c59'
+      })  
+    }
+
 
     render() {
       console.log(this.state.messages)
@@ -61,7 +69,7 @@ class App extends React.Component {
             <div className="app">
                 <RoomList />
                 <MessageList messages={this.state.messages} />
-                <SendMessageForm />
+                <SendMessageForm sendMessage={this.sendMessage}/>
                 <NewRoomForm />
             </div>
         );
